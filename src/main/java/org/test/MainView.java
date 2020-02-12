@@ -21,14 +21,18 @@ public class MainView extends VerticalLayout {
         Paragraph greeting = new Paragraph("");
         Button myButton = new Button("Button!", event -> {
             int num;
+            boolean canSetText = true;
             try {
                 num = Integer.parseInt(String.valueOf(ageField.getValue()));
-            } catch (NumberFormatException e) {
+            } catch (Exception e) {
                 num = 0;
                 Notification.show("Please enter a valid number");
+                canSetText = false;
             }
             String canVote = num >= 18 ? " Can Vote" : " Can't Vote";
-            greeting.setText("Hello, " + nameField.getValue() + canVote);
+            if (canSetText) {
+                greeting.setText("Hello, " + nameField.getValue() + canVote);
+            }
             nameField.clear();
             ageField.clear();
         });
