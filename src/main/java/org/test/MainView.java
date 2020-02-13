@@ -10,10 +10,12 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 @Route
 @Theme(value = Lumo.class, variant = Lumo.DARK)
+@PageTitle("Voter Registration")
 @PWA(name = "Voter Registration", shortName = "CanVote")
 public class MainView extends VerticalLayout {
 
