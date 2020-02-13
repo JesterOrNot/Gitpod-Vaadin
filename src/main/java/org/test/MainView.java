@@ -28,8 +28,9 @@ public class MainView extends VerticalLayout {
                 num = 0;
                 Notification.show("Please enter a valid number");
                 canSetText = false;
+                greeting.setText("");
             }
-            String canVote = num >= 18 ? " Can Vote" : " Can't Vote";
+            String canVote = num >= 18 ? " you can vote!" : " you can't vote!";
             if (canSetText) {
                 greeting.setText("Hello, " + nameField.getValue() + canVote);
             }
