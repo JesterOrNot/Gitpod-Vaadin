@@ -4,8 +4,9 @@ import java.time.LocalDate;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
@@ -22,40 +23,33 @@ import com.vaadin.flow.router.Route;
 @PWA(name = "Voter Registration", shortName = "CanVote")
 public class MainView extends VerticalLayout {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
     public MainView() {
         TextField nameField = new TextField("Name");
         DatePicker datePicker = new DatePicker();
         datePicker.setClearButtonVisible(true);
         datePicker.setLabel("Birthday");
-        Paragraph message = new Paragraph("");
         Button submitButton = new Button("Submit", new Icon(VaadinIcon.ARROW_RIGHT), event -> {
             int age;
-            boolean canSetText = true;
+            boolean canShowText = true;
             try {
                 age = datePicker.getValue().until(LocalDate.now()).getYears();
             } catch (Exception e) {
                 age = 0;
                 Notification.show("Error: Please enter a valid date.");
-                canSetText = false;
-                message.setText("");
+                canShowText = false;
             }
-            if(nameField.isEmpty()) {
-                canSetText = false;
+            if (nameField.isEmpty()) {
+                canShowText = false;
                 Notification.show("Error: Please enter a name.");
             }
-            String canVote = age >= 18 ? ", you can vote!" : ", you can't vote!";
-            if (canSetText) {
-                message.setText(nameField.getValue() + canVote);
+            String canVote = age >= 18 ? "Congrats, You can vote " : "Sorry, you can't vote ";
+            if (canShowText) {
+                new Dialog(new Label(canVote + nameField.getValue())).open();
             }
             nameField.clear();
             datePicker.clear();
         });
         submitButton.setIconAfterText(true);
-        add(nameField, datePicker, message, submitButton);
+        add(nameField, datePicker, submitButton);
     }
 }
