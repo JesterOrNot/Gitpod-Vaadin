@@ -1,6 +1,9 @@
 package org.test;
 
+import java.time.LocalDate;
+
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.icon.Icon;
@@ -26,27 +29,29 @@ public class MainView extends VerticalLayout {
 
     public MainView() {
         TextField nameField = new TextField("Name");
-        TextField ageField = new TextField("Age");
+        DatePicker datePicker = new DatePicker();
+        datePicker.setClearButtonVisible(true);
+        datePicker.setLabel("Birthday");
         Paragraph message = new Paragraph("");
         Button submitButton = new Button("Submit", new Icon(VaadinIcon.ARROW_RIGHT), event -> {
-            int num;
+            int age;
             boolean canSetText = true;
             try {
-                num = Integer.parseInt(String.valueOf(ageField.getValue()));
+                age = datePicker.getValue().until(LocalDate.now()).getYears();
             } catch (Exception e) {
-                num = 0;
+                age = 0;
                 Notification.show("Please enter a valid number");
                 canSetText = false;
                 message.setText("");
             }
-            String canVote = num >= 18 ? ", you can vote!" : ", you can't vote!";
+            String canVote = age >= 18 ? ", you can vote!" : ", you can't vote!";
             if (canSetText) {
                 message.setText(nameField.getValue() + canVote);
             }
             nameField.clear();
-            ageField.clear();
+            datePicker.clear();
         });
         submitButton.setIconAfterText(true);
-        add(nameField, ageField, message, submitButton);
+        add(nameField, datePicker, message, submitButton);
     }
 }
