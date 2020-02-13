@@ -10,9 +10,6 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.router.Route;
 
-/**
- * The main view contains a button and a click listener.
- */
 @Route
 @Theme(value = Lumo.class, variant = Lumo.DARK)
 @PWA(name = "Voter Registration", shortName = "CanVote")
