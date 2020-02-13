@@ -3,6 +3,8 @@ package org.test;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.PWA;
@@ -24,7 +26,7 @@ public class MainView extends VerticalLayout {
         TextField nameField = new TextField("Name");
         TextField ageField = new TextField("Age");
         Paragraph message = new Paragraph("");
-        Button myButton = new Button("Submit", event -> {
+        Button submitButton = new Button("Submit", new Icon(VaadinIcon.ARROW_RIGHT), event -> {
             int num;
             boolean canSetText = true;
             try {
@@ -35,13 +37,14 @@ public class MainView extends VerticalLayout {
                 canSetText = false;
                 message.setText("");
             }
-            String canVote = num >= 18 ? " you can vote!" : " you can't vote!";
+            String canVote = num >= 18 ? ", you can vote!" : ", you can't vote!";
             if (canSetText) {
-                message.setText("Hello, " + nameField.getValue() + canVote);
+                message.setText(nameField.getValue() + canVote);
             }
             nameField.clear();
             ageField.clear();
         });
-        add(nameField, ageField, message, myButton);
+        submitButton.setIconAfterText(true);
+        add(nameField, ageField, message, submitButton);
     }
 }
