@@ -18,7 +18,7 @@ public class MainView extends VerticalLayout {
     public MainView() {
         TextField nameField = new TextField("Name");
         TextField ageField = new TextField("Age");
-        Paragraph greeting = new Paragraph("");
+        Paragraph message = new Paragraph("");
         Button myButton = new Button("Button!", event -> {
             int num;
             boolean canSetText = true;
@@ -28,15 +28,15 @@ public class MainView extends VerticalLayout {
                 num = 0;
                 Notification.show("Please enter a valid number");
                 canSetText = false;
-                greeting.setText("");
+                message.setText("");
             }
             String canVote = num >= 18 ? " you can vote!" : " you can't vote!";
             if (canSetText) {
-                greeting.setText("Hello, " + nameField.getValue() + canVote);
+                message.setText("Hello, " + nameField.getValue() + canVote);
             }
             nameField.clear();
             ageField.clear();
         });
-        add(nameField, ageField, greeting, myButton);
+        add(nameField, ageField, message, myButton);
     }
 }
