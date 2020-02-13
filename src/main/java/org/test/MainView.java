@@ -40,9 +40,13 @@ public class MainView extends VerticalLayout {
                 age = datePicker.getValue().until(LocalDate.now()).getYears();
             } catch (Exception e) {
                 age = 0;
-                Notification.show("Please enter a valid number");
+                Notification.show("Error: Please enter a valid date.");
                 canSetText = false;
                 message.setText("");
+            }
+            if(nameField.isEmpty()) {
+                canSetText = false;
+                Notification.show("Error: Please enter a name.");
             }
             String canVote = age >= 18 ? ", you can vote!" : ", you can't vote!";
             if (canSetText) {
