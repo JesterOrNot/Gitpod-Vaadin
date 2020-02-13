@@ -18,11 +18,16 @@ import com.vaadin.flow.router.Route;
 @PWA(name = "Voter Registration", shortName = "CanVote")
 public class MainView extends VerticalLayout {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
     public MainView() {
         TextField nameField = new TextField("Name");
         TextField ageField = new TextField("Age");
         Paragraph message = new Paragraph("");
-        Button myButton = new Button("Button!", event -> {
+        Button myButton = new Button("Submit", event -> {
             int num;
             boolean canSetText = true;
             try {
